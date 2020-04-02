@@ -95,27 +95,27 @@ contract Vat {
     // --- Math ---
     function add(uint x, int y) internal pure returns (uint z) {
         z = x + uint(y);
-        require(y >= 0 || z <= x);
-        require(y <= 0 || z >= x);
+        require(y >= 0 || z <= x, "y < 0 || z > x");
+        require(y <= 0 || z >= x, "y > 0 || z < x");
     }
     function sub(uint x, int y) internal pure returns (uint z) {
         z = x - uint(y);
-        require(y <= 0 || z <= x);
-        require(y >= 0 || z >= x);
+        require(y <= 0 || z <= x, "y > 0 || z > x");
+        require(y >= 0 || z >= x, "y < 0 || z < x");
     }
     function mul(uint x, int y) internal pure returns (int z) {
         z = int(x) * y;
-        require(int(x) >= 0);
-        require(y == 0 || z / y == int(x));
+        require(int(x) >= 0, "x < 0");
+        require(y == 0 || z / y == int(x), "y != 0 || z/y != x");
     }
     function add(uint x, uint y) internal pure returns (uint z) {
-        require((z = x + y) >= x);
+        require((z = x + y) >= x, "z < x");
     }
     function sub(uint x, uint y) internal pure returns (uint z) {
-        require((z = x - y) <= x);
+        require((z = x - y) <= x, "z > x");
     }
     function mul(uint x, uint y) internal pure returns (uint z) {
-        require(y == 0 || (z = x * y) / y == x);
+        require(y == 0 || (z = x * y) / y == x, "y != 0 || z / y != x");
     }
 
     // --- Administration ---
